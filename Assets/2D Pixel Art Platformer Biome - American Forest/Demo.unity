@@ -3053,6 +3053,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 5
   movementSpeed: 5
+  mask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1572527933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3266,6 +3269,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b041b328-d19b-4497-bbff-f851b2d5b188
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16b3be95-0a61-4d2c-b35c-2f74e23c2b81
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

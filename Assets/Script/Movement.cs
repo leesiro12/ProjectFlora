@@ -12,18 +12,22 @@ public class Movement : MonoBehaviour
     InputAction playerMove;
     InputAction playerJump;
     public float movementSpeed = 3f;
+    public LayerMask mask;
+    Collider2D col;
+
 
     private void Awake()
     {
         playerController = new ProjectFloraInputs();
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
     }
     private void OnEnable()
     {
         playerMove = playerController.Player.Move;
         playerMove.Enable();
 
-        playerJump = playerController.Player.Move;
+        playerJump = playerController.Player.Jump;
         playerJump.Enable();
         playerJump.performed += Jump;
     }
@@ -45,6 +49,18 @@ public class Movement : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump: " + context.phase);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+        if (!IsGrounded())
+        {
+            Debug.Log("W");
+            rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+            Debug.Log("S");
+        }
+    }
+    bool IsGrounded()
+    {
+        return Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, 1f, mask);
     }
 }
