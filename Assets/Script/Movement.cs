@@ -12,8 +12,9 @@ public class Movement : MonoBehaviour
     InputAction playerMove;
     InputAction playerJump;
     public float movementSpeed = 3f;
-    public LayerMask mask;
+    public LayerMask groundMask;
     Collider2D col;
+    [SerializeField] float rayDis = 1f;
 
 
     private void Awake()
@@ -48,8 +49,7 @@ public class Movement : MonoBehaviour
     }
     public void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump: " + context.phase);
-        if (!IsGrounded())
+        if (IsGrounded())
         {
             Debug.Log("W");
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
@@ -61,6 +61,6 @@ public class Movement : MonoBehaviour
     }
     bool IsGrounded()
     {
-        return Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, 1f, mask);
+        return Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, rayDis, groundMask);
     }
 }
